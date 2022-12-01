@@ -1,0 +1,6 @@
+data/com.example.ThinkOut.desktop.in
+data/com.example.ThinkOut.appdata.xml.in
+data/com.example.ThinkOut.gschema.xml
+src/main.c
+src/think-out-window.c
+src/think-out-window.ui
