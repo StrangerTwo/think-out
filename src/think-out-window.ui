@@ -5,11 +5,18 @@
   <template class="ThinkOutWindow" parent="AdwApplicationWindow">
     <property name="default-width">600</property>
     <property name="default-height">600</property>
+    <property name="title">Think Out</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkHeaderBar" id="header_bar">
+            <child type="start">
+              <object class="GtkButton" id="open_button">
+                <property name="label">Open</property>
+                <property name="action-name">win.open</property>
+              </object>
+            </child>
             <child type="end">
               <object class="GtkMenuButton">
                 <property name="icon-name">open-menu-symbolic</property>
@@ -19,11 +26,31 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="label">
-            <property name="label">Think Out!</property>
+          <object class="GtkScrolledWindow">
+            <property name="hexpand">true</property>
             <property name="vexpand">true</property>
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="child">
+              <object class="GtkTextView" id="main_text_view">
+                <property name="monospace">true</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="save_button">
+            <property name="margin-bottom">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="halign">end</property>
+            <property name="valign">center</property>
+            <property name="label">Save!</property>
+            <property name="action-name">win.save</property>
             <style>
-              <class name="title-1"/>
+              <class name="suggested-action"/>
             </style>
           </object>
         </child>

@@ -28,7 +28,8 @@ struct _ThinkOutWindow
 
   /* Template widgets */
   GtkHeaderBar        *header_bar;
-  GtkLabel            *label;
+  GtkLabel            *main_text_view;
+  GtkButton           *save_button;
 };
 
 G_DEFINE_FINAL_TYPE (ThinkOutWindow, think_out_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -40,11 +41,24 @@ think_out_window_class_init (ThinkOutWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/com/example/ThinkOut/think-out-window.ui");
   gtk_widget_class_bind_template_child (widget_class, ThinkOutWindow, header_bar);
-  gtk_widget_class_bind_template_child (widget_class, ThinkOutWindow, label);
+  gtk_widget_class_bind_template_child (widget_class, ThinkOutWindow, main_text_view);
+  gtk_widget_class_bind_template_child (widget_class, ThinkOutWindow, save_button);
+}
+
+static void
+think_out_window__save (GAction          *action G_GNUC_UNUSED,
+                                      GVariant         *parameter G_GNUC_UNUSED,
+                                      ThinkOutWindow *self)
+{
+  gtk_window_close (GTK_WINDOW (self));
 }
 
 static void
 think_out_window_init (ThinkOutWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  g_autoptr (GSimpleAction) save_action = g_simple_action_new ("save", NULL);
+  g_signal_connect (save_action, "activate", G_CALLBACK (think_out_window__save), self);
+  g_action_map_add_action (G_ACTION_MAP (self), G_ACTION (save_action));
 }
